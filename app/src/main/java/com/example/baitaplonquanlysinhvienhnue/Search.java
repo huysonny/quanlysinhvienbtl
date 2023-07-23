@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -67,6 +68,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Search extends AppCompatActivity {
     ImageButton home;
     ImageButton edit;
@@ -76,7 +81,7 @@ public class Search extends AppCompatActivity {
     private UserAdapter userAdapter;
     private SearchView searchView;
 
-
+    List<User>  list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +96,7 @@ public class Search extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration=new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         rcvUser.addItemDecoration(itemDecoration);
         searchView=findViewById(R.id.searchView);
-        searchView.clearFocus();
+//        searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -125,9 +130,31 @@ public class Search extends AppCompatActivity {
     }
 
     private List<User> getListUser() {
-        List<User> list=new ArrayList<>();
-        list.add(new User(R.drawable.sena,"715105107","Van A","k71.E2","2003-7-26"));
-        list.add(new User(R.drawable.sena,"715105107","Van B","k71.E2","2003-7-26"));
+        ApiSevice apiService = RetrofitClient.getRetrofitInstance().create(ApiSevice.class);
+        Call<List<User>> callGet = apiService.getUsers();
+        callGet.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                ArrayList<Object> list = new ArrayList<>();
+                List<User> users = response.body();
+                Log.d("Du lieu",users+"");
+                Log.d("Du lieu 2",response.body()+"");
+
+                for(User user : users){
+                    list.add(new User(R.drawable.sena,user.getStudentID(),user.getFullName(),user.getClassName(),user.getDate()));
+                }
+
+                Toast.makeText(Search.this,"Connect API sucnessful"+response.body(),Toast.LENGTH_LONG).show();
+
+            }
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Toast.makeText(Search.this," API fail",Toast.LENGTH_LONG).show();
+            }
+        });
+//        List<User> list=new ArrayList<>();
+//        list.add(new User(R.drawable.sena,"715105107","Van A","k71.E2","2003-7-26"));
+//        list.add(new User(R.drawable.sena,"715105107","Van B","k71.E2","2003-7-26"));
 
         return list;
     }
