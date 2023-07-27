@@ -40,6 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.fullName.setText(user.getFullName());
         holder.className.setText(user.getClassName());
         holder.date.setText(user.getDate());
+        holder.home.setText(user.getHome());
     }
 
     @Override
@@ -57,6 +58,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         private TextView fullName;
         private TextView className;
         private TextView date;
+        private TextView home;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             imgUser=itemView.findViewById(R.id.imng_user);
@@ -64,6 +66,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             fullName=itemView.findViewById(R.id.fullName);
             className=itemView.findViewById(R.id.className);
             date=itemView.findViewById(R.id.date);
+            home=itemView.findViewById(R.id.home);
         }
     }
 }

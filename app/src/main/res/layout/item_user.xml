@@ -44,6 +44,13 @@
             android:text="date"
             android:textSize="16dp"
             android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="home"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
 </RelativeLayout>

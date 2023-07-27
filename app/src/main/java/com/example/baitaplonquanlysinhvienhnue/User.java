@@ -6,13 +6,19 @@ public class User {
     private String fullName;
     private String className;
     private String date;
-
-    public User(int image, String studentID, String fullName, String className, String date) {
-        this.image = image;
-        StudentID = studentID;
+    private String home;
+    private boolean gender;
+    private String email;
+    private String phoneNumber;
+    public User(String studentID, String fullName, String date, String home, String className,boolean gender,String email,String phoneNumber) {
+        this.StudentID = studentID;
         this.fullName = fullName;
-        this.className = className;
         this.date = date;
+        this.home = home;
+        this.className = className;
+        this.gender=gender;
+        this.email=email;
+        this.phoneNumber=phoneNumber;
     }
 
     public int getImage() {
@@ -51,7 +57,39 @@ public class User {
         return date;
     }
 
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getHome() {
+        return home;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
     }
 }
